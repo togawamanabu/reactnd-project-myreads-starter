@@ -8,9 +8,9 @@ class ListBooks extends Component {
   }
 
   render() {
-    var reading_books = this.props.books.filter((book) => book.shelf == "currentlyReading")
-    var wanttoread_books =  this.props.books.filter((book) => book.shelf == "wantToRead")
-    var read_books =  this.props.books.filter((book) => book.shelf == "read")
+    var reading_books = this.props.books.filter((book) => book.shelf === "currentlyReading")
+    var wanttoread_books =  this.props.books.filter((book) => book.shelf === "wantToRead")
+    var read_books =  this.props.books.filter((book) => book.shelf === "read")
 
     return(
       <div className="list-books">
@@ -24,7 +24,7 @@ class ListBooks extends Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   { reading_books.map((book) => (
-                       <li><Book book={ book } /></li>
+                       <li key={ book.id }><Book book={ book }  /></li>
                   ))}
                 </ol>
               </div>
@@ -34,7 +34,7 @@ class ListBooks extends Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   { wanttoread_books.map((book) => (
-                       <li><Book book={ book } /></li>
+                       <li key={ book.id }><Book book={ book } /></li>
                   ))}
                 </ol>
               </div>
@@ -45,17 +45,14 @@ class ListBooks extends Component {
                 <ol className="books-grid">
                   <ol className="books-grid">
                     { read_books.map((book) => (
-                         <li><Book book={ book } /></li>
+                         <li key={ book.id }><Book book={ book } /></li>
                     ))}
                   </ol>
                 </ol>
               </div>
             </div>
           </div>
-        </div>
-        <div className="open-search">
-          <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-        </div>
+        </div>        
       </div>
     )}
 }
