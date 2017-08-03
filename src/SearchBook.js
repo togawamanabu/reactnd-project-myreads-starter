@@ -3,11 +3,17 @@ import { Link } from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
 import serializeForm from 'form-serialize'
+import PropTypes from 'prop-types'
 
 class SearchBook extends Component {
   state = {
     books:[],
   }
+
+  static propType = {
+    updateBookStatus: PropTypes.func.isRequired
+  }
+
 
   handleSearch = (e) => {
       e.preventDefault()
@@ -21,6 +27,11 @@ class SearchBook extends Component {
         }
       })
 
+  }
+
+  updateBookStatus = (book) => {
+    console.log(this.props.updateBookStatus)
+    this.props.updateBookStatus(book)
   }
 
   render() {
@@ -46,7 +57,7 @@ class SearchBook extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             { this.state.books.map((book) => (
-                 <li key={ book.id }><Book book={ book }  /></li>
+                 <li key={ book.id }><Book book={ book } updateBookStatus={this.updateBookStatus} /></li>
             ))}
           </ol>
         </div>

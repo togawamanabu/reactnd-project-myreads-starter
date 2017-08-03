@@ -5,6 +5,11 @@ import Book from './Book'
 class ListBooks extends Component {
   static propType = {
     books: PropTypes.array.isRequired,
+    updateBookStatus: PropTypes.func.isRequired
+  }
+
+  updateBookStatus = (book) => {
+    this.props.updateBookStatus(book)
   }
 
   render() {
@@ -24,7 +29,7 @@ class ListBooks extends Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   { reading_books.map((book) => (
-                       <li key={ book.id }><Book book={ book }  /></li>
+                       <li key={ book.id }><Book book={ book } updateBookStatus={this.updateBookStatus} /></li>
                   ))}
                 </ol>
               </div>
@@ -34,7 +39,7 @@ class ListBooks extends Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   { wanttoread_books.map((book) => (
-                       <li key={ book.id }><Book book={ book } /></li>
+                       <li key={ book.id }><Book book={ book } updateBookStatus={this.updateBookStatus} /></li>
                   ))}
                 </ol>
               </div>
@@ -45,14 +50,14 @@ class ListBooks extends Component {
                 <ol className="books-grid">
                   <ol className="books-grid">
                     { read_books.map((book) => (
-                         <li key={ book.id }><Book book={ book } /></li>
+                         <li key={ book.id }><Book book={ book } updateBookStatus={this.updateBookStatus} /></li>
                     ))}
                   </ol>
                 </ol>
               </div>
             </div>
           </div>
-        </div>        
+        </div>
       </div>
     )}
 }
