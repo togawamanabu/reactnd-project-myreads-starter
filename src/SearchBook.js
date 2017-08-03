@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
-import serializeForm from 'form-serialize'
 import PropTypes from 'prop-types'
 
 class SearchBook extends Component {
@@ -16,10 +15,9 @@ class SearchBook extends Component {
 
 
   handleSearch = (e) => {
-      e.preventDefault()
-      const values = serializeForm(e.target, {hash: true})
+    var query =  e.target.value
 
-      BooksAPI.search(values.query, 20).then((books) => {
+    BooksAPI.search(query, 20).then((books) => {
         if(Array.isArray(books)){
           this.setState({books})
         } else {
@@ -30,8 +28,11 @@ class SearchBook extends Component {
   }
 
   updateBookStatus = (book) => {
-    console.log(this.props.updateBookStatus)
     this.props.updateBookStatus(book)
+  }
+
+  queryChanged = (e) => {
+
   }
 
   render() {
@@ -48,9 +49,9 @@ class SearchBook extends Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <form onSubmit={this.handleSearch}>
-              <input name="query" type="text" placeholder="Search by title or author" />
-            </form>
+
+              <input name="query" type="text" placeholder="Search by title or author" onChange={this.handleSearch}/>
+
 
           </div>
         </div>

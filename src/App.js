@@ -18,14 +18,13 @@ class BooksApp extends React.Component {
   }
 
   updateBookStatus = (book) => {
-    var updatedbooks = this.state.books.map((b) => {
-      if(b.id === book.id) {
-        b.shelf = book.shelf
-      }
-      return b
+    var updatingbooks = this.state.books.filter((b) => {
+      return b.id !== book.id
     })
 
-    this.setState({books: updatedbooks})
+    updatingbooks.push(book)
+
+    this.setState({books: updatingbooks})
 
     BooksAPI.update(book, book.shelf).then((ret) => {
       console.log("bookupdated", ret)
